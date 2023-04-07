@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<h3>Задача 6</h3>
+	<p>Дано масив імен. Застосовуючи відповідне сортування та бінарний пошук визначити, чи є у масиві ім’я довжиною 5
+		символів
+		і під яким індексом.</p>
+	<script>
+		// Вводимо необхідні дані
+		let nameList = ['Andrew', 'Ben', 'Micky', 'Brandon', 'Olga', 'Tatiana', 'Juliette']
+		document.write(`Даний масив: ${nameList}<br>`)
+		function getSortNames(arr) {
+			let change
+			do {
+				change = false
+				for (let i = 1; i < arr.length; i++) {
+					if (arr[i - 1].length > arr[i].length) {
+						let temp = arr[i - 1]
+						arr[i - 1] = arr[i]
+						arr[i] = temp
+						change = true
+					}
+				}
+			} while (change);
+			return arr
+		}
+		getSortNames(nameList)
+		document.write(`Відсортований масив: ${nameList}<br>`)
+
+		// Обчислюємо та виводимо результат
+		function include_5_symbols(arr, symbolIndex) {
+			let start = 0
+			let end = arr.length - 1
+			while (start <= end) {
+				const middle = Math.floor((start + end) / 2)
+				if (arr[middle].length === symbolIndex) return middle
+				if (arr[middle].length < symbolIndex) start = middle + 1
+				if (arr[middle].length > symbolIndex) end = middle - 1
+			}
+			return -1
+		}
+		const symbolIndexLength_5 = include_5_symbols(nameList, 5)
+		if (symbolIndexLength_5 !== -1) {
+			document.write(`Ім'я довжиною 5 символів - ${nameList[symbolIndexLength_5]} у масиві знаходиться за індексом № ${symbolIndexLength_5}<br>`)
+		} else {
+			document.write('У масиві відсутне ім"я довжиною 5 символів')
+		}
+
+	</script>
+</body>
+
+</html>

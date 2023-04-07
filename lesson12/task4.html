@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<h3>Задача 4</h3>
+	<p>Для розглянутих методів сортування спробувати вивести етапи сортування шляхом виведення відповідних таблиць за
+		зразком</p>
+	<script>
+		function getRandomNumbers(minV, maxV) {
+			return minV + Math.floor(Math.random() * (maxV - minV + 1))
+		}
+		// генеруємо масив
+		function getRandomArr(arrLength, minV, maxV) {
+			let arr = []
+			for (let i = 0; i < arrLength; i++) {
+				const randomNumbers = getRandomNumbers(minV, maxV)
+				arr.push(randomNumbers)
+			}
+			return arr
+		}
+
+		let arr1 = getRandomArr(5, 1, 100)
+		let arr2 = [...arr1]
+		let arr3 = [...arr1]
+		// ===========сортування бульбашкою=============
+		function sortBubble(arr1) {
+			let arr = [...arr1]
+			let count = 0
+			let changes
+			let result = ''
+			do {
+				changes = false
+				for (let i = 0; i < arr1.length; i++) {
+					if (arr1[i - 1] > arr1[i]) {
+						let temp = arr1[i - 1]
+						arr1[i - 1] = arr1[i]
+						arr1[i] = temp
+						count++
+						changes = true
+					}
+					result += `${arr1}<br>`
+				}
+			} while (changes);
+			return result
+		}
+		document.write(`Сортування бульбашкою  ---- ${sortBubble(arr1)}`)
+
+		// ==============Сортування змішуванням===========
+		document.write(`<p>Сортування змішуванням ---- ${arr2}<p><br>`)
+		function sortMixed(arr2) {
+			let swapCounter = 0
+			let leftIndex = 0
+			let rightIndex = arr2.length - 1
+			while (leftIndex < rightIndex) {
+				for (let i = leftIndex; i < rightIndex; i++) {
+					if (arr2[i] > arr2[i + 1]) {
+						[arr2[i], arr2[i + 1] = arr2[i + 1], arr2[i]]
+						swapCounter++
+						document.write(`${arr2}<br>`)
+					}
+				}
+				rightIndex--
+				for (let j = rightIndex; j < leftIndex; j--) {
+					if (arr2[j] < arr2[j - 1]) {
+						[arr2[j], arr2[j - 1] = arr2[j - 1], arr2[j]]
+						swapCounter++
+						document.write(`${arr2}<br>`)
+					}
+				}
+				leftIndex++
+			}
+		}
+		sortMixed(arr2)
+
+		// ======Сортування включенням======
+		document.write(`<p>Сортування включенням ---- ${arr3}</p>`)
+		function inclusionSort(arr) {
+			for (let i = 1; i < arr.length; i++) {
+				const curEl = arr[i]
+				let j = i - 1
+				while (j >= 0 && arr[j] > curEl) {
+					arr[j + 1] = arr[j]
+					j = j - 1
+				}
+				arr[j + 1] = curEl
+				document.write(`${arr}<br>`)
+			}
+		}
+		inclusionSort(arr3)
+	</script>
+</body>
+
+</html>
